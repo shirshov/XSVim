@@ -4,8 +4,20 @@ open System
 open MonoDevelop.Ide.Editor.Extension
 open NUnit.Framework
 open XSVim
+open Mono.Addins
 open MonoDevelop.Core
+open MonoDevelop.Core.ProgressMonitoring
+open MonoDevelop.Ide
 open MonoDevelop.Ide.Editor
+open System
+open System.IO
+open NUnit.Framework
+open MonoDevelop.Core
+open MonoDevelop.Ide
+open MonoDevelop.Core.Assemblies
+//open MonoDevelop.Ide.TypeSystem
+open System.Threading
+
 [<AutoOpen>]
 module FsUnit =
 
@@ -81,10 +93,16 @@ module FixtureSetup =
         if !firstRun then
             printf "initialising"
             firstRun := false
-            Environment.SetEnvironmentVariable ("MONO_ADDINS_REGISTRY", "/tmp")
+            //Environment.SetEnvironmentVariable ("MONO_ADDINS_REGISTRY", "/Users/jason/src/XSVim/XSVim.Tests/bin/Debug")
+            //Environment.SetEnvironmentVariable ("MONO_ADDINS_REGISTRY", "/tmp")
+            Environment.SetEnvironmentVariable ("MONODEVELOP_DEV_ADDINS", "")
             //Environment.SetEnvironmentVariable ("XDG_CONFIG_HOME", "/tmp")
+
             Runtime.Initialize (true)
+            Xwt.Application.Initialize (Xwt.ToolkitType.Gtk)
+            Gtk.Application.Init ()
             MonoDevelop.Ide.DesktopService.Initialize()
+            IdeApp.Initialize (new ConsoleProgressMonitor())
 
 [<AutoOpen>]
 module TestHelpers =

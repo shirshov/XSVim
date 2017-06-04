@@ -126,3 +126,7 @@ module ``Miscellaneous tests`` =
     [<Test>]
     let ``<C-x> decrements -1``() =
         assertText "abc -1$ " "<C-x>" "abc -2$ "
+
+    [<Test>]
+    let ``% finds matching brace``() =
+        assertText "((abc)def)$" "%" "($(abc)def)"

@@ -73,3 +73,7 @@ module ``Delete tests`` =
     [<Test>]
     let ``Delete char to left doesn't delete past start of line``() =
         assertText "abcdef\nab$cdef" "XXX" "abcdef\nb$cdef"
+
+    [<Test>]
+    let ``Deletes inside matching parens``() =
+        assertText "((abc)de$f)" "di)" "($)"
