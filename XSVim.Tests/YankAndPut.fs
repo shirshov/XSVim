@@ -33,3 +33,7 @@ module ``Yank and put tests`` =
     [<Test>]
     let ``P acts like p in visual mode``() =
         assertText "a$bc" "vlyvllP" "ab$"
+
+    [<Test>]
+    let ``Visual line selection should work at EOF``() =
+        assertText "a$bc" "Vyp" "abc\na$bc"
